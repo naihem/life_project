@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class = "counter">{{ var.counter }}</div>
+<a class="btn btn-warning home" href="{{ url_for('index') }}">На главную</a>
+<a class="btn btn-info refresh" href="{{ url_for('live') }}">Создать новую жизнь</a>
+
+ <table class="world">
+ {% for i in range(var.world|length) %}
+    <tr>
+        {% for j in range(var.world|length)%}
+            {% if var.world[i][j] %}
+              <td class="cell living-cell"></td>
+            {% elif var.world[i][j] == 0 and var.old_world[i][j] == 1 %}
+              <td class="cell dead-cell"></td>
+            {% else %}
+              <td class="cell"> </td>
+            {% endif %}
+        {% endfor %}
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script>setInterval(() => window.location.reload(), 1000)</script>
+{% endblock %}
+
+
+
+
